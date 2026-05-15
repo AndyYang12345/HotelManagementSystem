@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/harekasa/C++ProgramDesign/build",
+  "command": "/usr/bin/g++ -DTINYXML2_DEBUG -DTINYXML2_IMPORT -D_FILE_OFFSET_BITS=64 -I/home/harekasa/C++ProgramDesign/include -g -std=gnu++17 -o CMakeFiles/hotel_mgmt.dir/src/room.cpp.o -c /home/harekasa/C++ProgramDesign/src/room.cpp",
+  "file": "/home/harekasa/C++ProgramDesign/src/room.cpp",
+  "output": "CMakeFiles/hotel_mgmt.dir/src/room.cpp.o"
+},
+{
+  "directory": "/home/harekasa/C++ProgramDesign/build",
+  "command": "/usr/bin/g++ -DTINYXML2_DEBUG -DTINYXML2_IMPORT -D_FILE_OFFSET_BITS=64 -I/home/harekasa/C++ProgramDesign/include -g -std=gnu++17 -o CMakeFiles/hotel_mgmt.dir/src/config_loader.cpp.o -c /home/harekasa/C++ProgramDesign/src/config_loader.cpp",
+  "file": "/home/harekasa/C++ProgramDesign/src/config_loader.cpp",
+  "output": "CMakeFiles/hotel_mgmt.dir/src/config_loader.cpp.o"
+},
+{
+  "directory": "/home/harekasa/C++ProgramDesign/build",
+  "command": "/usr/bin/g++ -DTINYXML2_DEBUG -DTINYXML2_IMPORT -D_FILE_OFFSET_BITS=64 -I/home/harekasa/C++ProgramDesign/include -g -std=gnu++17 -o CMakeFiles/hotel_mgmt.dir/src/main.cpp.o -c /home/harekasa/C++ProgramDesign/src/main.cpp",
+  "file": "/home/harekasa/C++ProgramDesign/src/main.cpp",
+  "output": "CMakeFiles/hotel_mgmt.dir/src/main.cpp.o"
+}
+]
