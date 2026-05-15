@@ -35,13 +35,13 @@ bool MainWindow::Initialize(const std::string& configPath) {
 void MainWindow::SetupUI() {
     // ---- 窗口设置 ----
     setWindowTitle(QString::fromStdString(hotel_.GetName()) + " — 酒店管理系统");
-    setMinimumSize(920, 640);
+    setMinimumSize(1020, 680);
 
     // 居中显示
     QScreen* screen = QApplication::primaryScreen();
     QRect screenRect = screen->availableGeometry();
-    int w = std::min(1100, screenRect.width() - 100);
-    int h = std::min(780, screenRect.height() - 100);
+    int w = std::min(1150, screenRect.width() - 80);
+    int h = std::min(820, screenRect.height() - 80);
     resize(w, h);
     move((screenRect.width() - w) / 2, (screenRect.height() - h) / 2);
 
@@ -75,7 +75,7 @@ void MainWindow::SetupUI() {
     headerLayout->addStretch();
 
     // 刷新按钮
-    refresh_btn_ = new QPushButton("🔄 刷新");
+    refresh_btn_ = new QPushButton("刷新");
     refresh_btn_->setStyleSheet(AppleStyle::SecondaryButtonStyle());
     refresh_btn_->setFont(AppleStyle::BodyFont());
     refresh_btn_->setCursor(Qt::PointingHandCursor);
@@ -100,8 +100,8 @@ void MainWindow::SetupUI() {
     cards_container_ = new QWidget();
     cards_container_->setStyleSheet("background: transparent;");
     cards_grid_ = new QGridLayout(cards_container_);
-    cards_grid_->setSpacing(14);
-    cards_grid_->setContentsMargins(0, 4, 0, 4);
+    cards_grid_->setSpacing(16);
+    cards_grid_->setContentsMargins(2, 8, 2, 8);
 
     // 创建所有房间卡片
     int col = 0, row = 0;
