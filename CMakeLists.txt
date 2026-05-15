@@ -3,9 +3,6 @@ project(HotelManagementSystem VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
 
 # 查找依赖
 find_package(tinyxml2 REQUIRED)
@@ -53,6 +50,10 @@ find_package(Qt5 COMPONENTS Widgets QUIET)
 
 if(Qt5_FOUND)
     message(STATUS "Qt5 found — building GUI target")
+
+    set(CMAKE_AUTOMOC ON)
+    set(CMAKE_AUTORCC ON)
+    set(CMAKE_AUTOUIC ON)
 
     # GUI 需要访问 hotel.h 等核心头文件，额外加上 gui/ 目录
     include_directories(${CMAKE_SOURCE_DIR}/gui)

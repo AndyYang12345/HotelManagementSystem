@@ -2,6 +2,7 @@
 #include "big_bed_room.h"
 #include "standard_room.h"
 #include "luxury_room.h"
+#include <cstdint>
 #include <cstring>
 
 // ============================================================================
