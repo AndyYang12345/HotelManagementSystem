@@ -17,6 +17,7 @@ set(SOURCES
     src/big_bed_room.cpp
     src/standard_room.cpp
     src/luxury_room.cpp
+    src/hotel.cpp
     src/config_loader.cpp
     src/main.cpp
 )
