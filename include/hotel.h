@@ -6,12 +6,14 @@
 #include <memory>
 #include "room.h"
 #include "config_loader.h"
+#include "database_manager.h"
 
 /**
  * @brief 酒店管理类
  *
  * 负责管理所有房间的登记入住、状态查询、费用查询和结账退房。
  * 通过 ConfigLoader 读取 XML 配置，自动创建对应类型的房间实例。
+ * 通过 DatabaseManager 实现 SQLite 持久化，状态变更实时保存。
  */
 class Hotel {
 public:
@@ -20,11 +22,13 @@ public:
 
     // ========== 初始化 ==========
     /**
-     * @brief 从 XML 配置文件初始化酒店
+     * @brief 从 XML 配置文件初始化酒店，并从数据库恢复上次状态
      * @param configPath XML 配置文件路径
-     * @return true 成功，false 失败（可通过 GetLastError() 获取原因）
+     * @param dbPath SQLite 数据库文件路径（可选，默认为 "config/hotel_data.db"）
+     * @return true 成功，false 失败
      */
-    bool Initialize(const std::string& configPath);
+    bool Initialize(const std::string& configPath,
+                    const std::string& dbPath = "config/hotel_data.db");
 
     /// 获取初始化失败的错误信息
     const std::string& GetLastError() const { return last_error_; }
@@ -79,6 +83,7 @@ private:
 
     std::string name_;
     std::vector<std::unique_ptr<Room>> rooms_;
+    DatabaseManager db_;
     std::string last_error_;
 };
 

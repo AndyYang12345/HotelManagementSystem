@@ -10,6 +10,9 @@ set(CMAKE_AUTOUIC ON)
 # 查找依赖
 find_package(tinyxml2 REQUIRED)
 
+# SQLite3（系统自带）
+find_package(SQLite3 REQUIRED)
+
 # 头文件路径（CLI + 核心库共用）
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
@@ -23,6 +26,7 @@ set(CORE_SOURCES
     src/luxury_room.cpp
     src/hotel.cpp
     src/config_loader.cpp
+    src/database_manager.cpp
 )
 
 # ============================
@@ -33,7 +37,7 @@ add_executable(hotel_mgmt
     src/cli.cpp
     src/main.cpp
 )
-target_link_libraries(hotel_mgmt PRIVATE tinyxml2::tinyxml2)
+target_link_libraries(hotel_mgmt PRIVATE tinyxml2::tinyxml2 SQLite::SQLite3)
 
 # 复制 config 到 CLI build 目录
 add_custom_command(TARGET hotel_mgmt POST_BUILD
@@ -61,6 +65,7 @@ if(Qt5_FOUND)
     )
     target_link_libraries(hotel_mgmt_gui PRIVATE
         tinyxml2::tinyxml2
+        SQLite::SQLite3
         Qt5::Widgets
     )
 

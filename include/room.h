@@ -74,6 +74,12 @@ public:
     /// 获取退房时间字符串
     std::string GetCheckOutTimeStr() const;
 
+    /// 获取入住时间戳（用于数据库持久化）
+    std::time_t GetCheckInTime() const { return check_in_time_; }
+
+    /// 从数据库恢复入住状态（绕过 is_occupied 检查）
+    void RestoreState(std::time_t checkInTime, BillingMode mode);
+
     // ========== 静态工具 ==========
     /// 将 time_t 转为可读字符串 "YYYY-MM-DD HH:MM:SS"
     static std::string TimeToString(std::time_t t);

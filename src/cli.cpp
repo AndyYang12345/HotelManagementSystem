@@ -59,7 +59,7 @@ void HotelCLI::ClearScreen() const {
 void HotelCLI::ShowBanner() const {
     std::cout << std::endl;
     std::cout << "  ╔══════════════════════════════════════╗" << std::endl;
-    std::cout << "  ║        " << hotel_.GetName() << "        ║" << std::endl;
+    std::cout << "  ║              " << hotel_.GetName() << "             ║" << std::endl;
     std::cout << "  ║         酒店管理系统 v1.0            ║" << std::endl;
     std::cout << "  ╚══════════════════════════════════════╝" << std::endl;
     std::cout << std::endl;

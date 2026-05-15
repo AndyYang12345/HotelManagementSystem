@@ -32,6 +32,16 @@ bool Room::CheckIn(BillingMode mode) {
 }
 
 // ============================================================================
+// RestoreState — 从数据库恢复状态
+// ============================================================================
+void Room::RestoreState(std::time_t checkInTime, BillingMode mode) {
+    is_occupied_    = true;
+    check_in_time_  = checkInTime;
+    check_out_time_ = 0;
+    billing_mode_   = mode;
+}
+
+// ============================================================================
 // CheckOut — 结账退房
 // ============================================================================
 double Room::CheckOut() {

@@ -7,9 +7,10 @@
 #include <algorithm>
 
 // ============================================================================
-// Initialize — 从 XML 配置初始化所有房间
+// Initialize — 从 XML 配置初始化所有房间 + 从数据库恢复状态
 // ============================================================================
-bool Hotel::Initialize(const std::string& configPath) {
+bool Hotel::Initialize(const std::string& configPath, const std::string& dbPath) {
+    // 1. 加载 XML 配置
     ConfigLoader loader;
     if (!loader.Load(configPath)) {
         last_error_ = loader.GetLastError();
@@ -20,7 +21,7 @@ bool Hotel::Initialize(const std::string& configPath) {
     rooms_.clear();
 
     const auto& types = loader.GetRoomTypeConfigs();
-    int globalNumber = 101;  // 起始房间号
+    int globalNumber = 101;
 
     for (const auto& typeCfg : types) {
         for (int i = 0; i < typeCfg.count; ++i) {
@@ -35,6 +36,23 @@ bool Hotel::Initialize(const std::string& configPath) {
     if (rooms_.empty()) {
         last_error_ = "未能创建任何房间";
         return false;
+    }
+
+    // 2. 打开数据库（失败不阻塞，仅警告）
+    if (!db_.Open(dbPath)) {
+        std::cerr << "[警告] 数据库打开失败: " << db_.GetLastError()
+                  << " — 本次运行将不持久化。" << std::endl;
+    } else {
+        // 3. 从数据库恢复上次的入住状态
+        if (!db_.LoadRoomStates(rooms_)) {
+            std::cerr << "[警告] 状态恢复失败: " << db_.GetLastError() << std::endl;
+        } else {
+            int occupied = GetOccupiedCount();
+            if (occupied > 0) {
+                std::cerr << "[信息] 从数据库恢复了 " << occupied
+                          << " 间房的入住状态。" << std::endl;
+            }
+        }
     }
 
     return true;
@@ -82,6 +100,8 @@ bool Hotel::CheckIn(int roomNumber, BillingMode mode) {
         last_error_ = "房间 " + std::to_string(roomNumber) + " 已有人入住";
         return false;
     }
+    // 实时持久化
+    db_.SaveRoomState(*room);
     return true;
 }
 
@@ -100,7 +120,12 @@ double Hotel::QueryFee(int roomNumber) const {
 double Hotel::CheckOut(int roomNumber) {
     Room* room = FindRoom(roomNumber);
     if (!room) return -2.0;   // 房间不存在
-    return room->CheckOut();
+    double fee = room->CheckOut();
+    if (fee >= 0) {
+        // 退房成功 — 实时持久化
+        db_.SaveRoomState(*room);
+    }
+    return fee;
 }
 
 // ============================================================================
