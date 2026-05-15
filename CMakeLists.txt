@@ -14,6 +14,9 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 # 源文件
 set(SOURCES
     src/room.cpp
+    src/big_bed_room.cpp
+    src/standard_room.cpp
+    src/luxury_room.cpp
     src/config_loader.cpp
     src/main.cpp
 )
